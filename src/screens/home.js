@@ -1,33 +1,29 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Fade from "react-reveal/Fade";
-import {ADD_TODO,DELETE_TODO} from "../actions/actionTypes"
+import { ADD_TODO, DELETE_TODO } from "../actions/actionTypes";
 
 function Home() {
-  const todoList = useSelector(state => state.todoList);
+  const todoList = useSelector((state) => state.todoList);
   const dispatch = useDispatch();
-  const [todo, setTodo] = useState('');
-
- 
+  const [todo, setTodo] = useState("");
 
   const addTodo = () => {
     if (todo && Object.keys(todo).length) {
       dispatch({
-        type:ADD_TODO,
-        payload:{id:Date.now(),title:todo}
+        type: ADD_TODO,
+        payload: { id: Date.now(), title: todo },
       });
-     return setTodo('');
+      return setTodo("");
     }
   };
 
-  const deleteTodo =(id)=>{
+  const deleteTodo = (id) => {
     return dispatch({
-      type:DELETE_TODO,
-      payload:{id}
+      type: DELETE_TODO,
+      payload: { id },
     });
-  }
-
-
+  };
 
   return (
     <div className="screen home-container">
@@ -35,7 +31,7 @@ function Home() {
         <div className="add-todo">
           <textarea
             placeholder="Add something..."
-            onChange={e => setTodo(e.target.value)}
+            onChange={(e) => setTodo(e.target.value)}
             value={todo}
           />
           <button onClick={addTodo}>
@@ -46,10 +42,13 @@ function Home() {
       </Fade>
       <Fade bottom cascade>
         <div className="todo-list">
-          {todoList.map(todo => (
+          {todoList.map((todo) => (
             <div key={todo.id} className="todo-item">
               <div className="todo-item-buttons">
-                <button onClick={() => deleteTodo(todo.id)}>
+                <button
+                  // style={{ backgroundColor: "red" }}
+                  onClick={() => deleteTodo(todo.id)}
+                >
                   <i className="fa fa-times" />
                 </button>
               </div>
